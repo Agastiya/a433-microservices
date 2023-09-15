@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.7" # Menggunakan schema version 3.7
 services:
   item-app:
     image: ghcr.io/agastiya/item-app:v1  # Menggunakan image dari GitHub Container Registry (github package)
