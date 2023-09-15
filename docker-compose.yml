@@ -6,7 +6,7 @@ services:
       - 8082:80
     depends_on:
       - mysql
-  mongo:
+  item-db:
     image: mongo:3
     volumes:
       - app-db:/data/db
