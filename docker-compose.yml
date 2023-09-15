@@ -3,7 +3,7 @@ services:
   item-app:
     image: ghcr.io/agastiya/item-app:v1
     ports:
-      - 8082:80
+      - 8200:8080
     depends_on:
       - item-db
   item-db:
