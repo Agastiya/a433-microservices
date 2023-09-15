@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  item-app:
+    image: ghcr.io/agastiya/item-app:v1
+    ports:
+      - 8082:80
+    depends_on:
+      - mysql
+  mysql:
+    image: mongo:3
+    volumes:
+      - app-db:/data/db
+volumes:
+  app-db:
