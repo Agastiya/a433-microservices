@@ -6,6 +6,6 @@ docker images
 
 docker tag item-app:v1 ghcr.io/agastiya/item-app:v1
 
-docker login --username agastiya --password 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 ghcr.io
+echo $PASSWORD_DOCKER_HUB | docker login --username agastiya --password-stdin ghcr.io
 
 docker push ghcr.io/agastiya/item-app:v1
