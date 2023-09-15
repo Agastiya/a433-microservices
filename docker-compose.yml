@@ -5,7 +5,7 @@ services:
     ports:
       - 8082:80
     depends_on:
-      - mysql
+      - item-db
   item-db:
     image: mongo:3
     volumes:
