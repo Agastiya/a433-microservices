@@ -1,16 +1,16 @@
 version: "3.7"
 services:
   item-app:
-    image: ghcr.io/agastiya/item-app:v1
+    image: ghcr.io/agastiya/item-app:v1  # Menggunakan image dari GitHub Container Registry (github package)
     ports:
-      - 8200:8080
-    restart: always
+      - 80:8080  # Mengekspose port 8200 host ke port 8080 container
+    restart: always  # Melakukan restart policy agar container selalu restart jika berhenti
     depends_on:
-      - item-db
+      - item-db  # Menunggu hingga service 'item-db' selesai berjalan lebih dulu
   item-db:
-    image: mongo:3
+    image: mongo:3  # Menggunakan image MongoDB versi 3
     volumes:
-      - app-db:/data/db
-    restart: always
+      - app-db:/data/db  # Menggunakan volume 'app-db' untuk penyimpanan data
+    restart: always  # Melakukan restart policy agar container selalu restart jika berhenti
 volumes:
-  app-db:
+  app-db:  # Membuat volume Docker bernama 'app-db'
