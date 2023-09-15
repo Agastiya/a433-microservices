@@ -4,11 +4,13 @@ services:
     image: ghcr.io/agastiya/item-app:v1
     ports:
       - 8200:8080
+    restart: always
     depends_on:
       - item-db
   item-db:
     image: mongo:3
     volumes:
       - app-db:/data/db
+    restart: always
 volumes:
   app-db:
