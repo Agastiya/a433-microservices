@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: karsajobs-backend
+  template:
+    metadata:
+      labels:
+        app: karsajobs-backend
+    spec:
+      containers:
+      - name: karsajobs-backend
+        resources:
+          limits:
+            cpu: 50m
+            memory: 200Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        image: ghcr.io/agastiya/karsajobs:latest
+        ports:
+          - containerPort: 8080
+        # env:
+        #   - name: APP_PORT
+        #     value: "8080"
+        #   - name: MONGO_HOST
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: mongo-configmap
+        #         key: mongo-host
+        #   - name: MONGO_USER
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: mongo-secret
+        #         key: username
+        #   - name: MONGO_PASS
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: mongo-secret
+        #         key: password

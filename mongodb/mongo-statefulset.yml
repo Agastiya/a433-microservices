@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-statefulset
+spec:
+  serviceName: mongo-service
+  replicas: 3 # Sesuaikan dengan jumlah replika yang diinginkan
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:latest # Ganti dengan versi MongoDB yang sesuai
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+            - name: config
+              mountPath: /config
+            - name: credentials
+              mountPath: /etc/mongo-credentials
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+        - name: config
+          configMap:
+            name: mongo-configmap
+        - name: credentials
+          secret:
+            secretName: mongo-secret
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-pvc
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi # Sesuaikan dengan kapasitas yang sesuai dengan PV
