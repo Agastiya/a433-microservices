@@ -2,12 +2,15 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo-statefulset
+  labels:
+    app: mongodb
 spec:
-  serviceName: mongo-service
-  replicas: 3 # Sesuaikan dengan jumlah replika yang diinginkan
   selector:
     matchLabels:
       app: mongodb
+  serviceName: mongo-service
+  replicas: 3 # Sesuaikan dengan jumlah replika yang diinginkan
+  minReadySeconds: 10
   template:
     metadata:
       labels:
