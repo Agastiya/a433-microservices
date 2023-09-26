@@ -1,28 +1,38 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mongo-pv
   labels:
-    type: local
+    app: mongodb
+    tier: database
+  name: mongodb-pv
 spec:
-  storageClassName: manual
-  capacity:
-    storage: 5Gi
   accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data/mongodb"
+  - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  local:
+    path: /mnt/data/mongo
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - minikube
+  storageClassName: manual
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-pvc
   labels:
     app: mongodb
+    tier: database
+  name: mongodb-pvc
 spec:
-  storageClassName: manual
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 2Gi
+  storageClassName: manual

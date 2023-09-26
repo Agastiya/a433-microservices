@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mongo-configmap
+  name: mongodb-configmap
+  labels:
+    app: mongodb
+    tier: database
 data:
   mongo.conf: |
     storage:

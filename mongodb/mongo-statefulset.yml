@@ -1,48 +1,52 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongo-statefulset
+  name: mongodb
   labels:
-    app: mongodb
+    app: karsajobs
+    tier: database
 spec:
   selector:
     matchLabels:
-      app: mongodb
-  serviceName: mongo-service
-  replicas: 3 # Sesuaikan dengan jumlah replika yang diinginkan
+      app: karsajobs
+      tier: database
+  serviceName: mongodb
+  replicas: 1
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: mongodb
+        app: karsajobs
+        tier: database
     spec:
       containers:
-        - name: mongo
-          image: mongo:latest # Ganti dengan versi MongoDB yang sesuai
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: data
-              mountPath: /data/db
-            - name: config
-              mountPath: /config
-            - name: credentials
-              mountPath: /etc/mongo-credentials
+      - name: mongodb
+        image: mongo:latest
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME_FILE
+          value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+          value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+        volumeMounts:
+        - name: mongodb-persistent-storage
+          mountPath: /data/db
+        - name: mongodb-config
+          mountPath: /config
+        - name: mongodb-secret
+          mountPath: /etc/mongo-credentials
+        ports:
+        - name: mongodb
+          containerPort: 27017
       volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: mongo-pvc
-        - name: config
-          configMap:
-            name: mongo-configmap
-        - name: credentials
-          secret:
-            secretName: mongo-secret
-  volumeClaimTemplates:
-    - metadata:
-        name: mongo-pvc
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 10Gi # Sesuaikan dengan kapasitas yang sesuai dengan PV
+      - name: mongodb-persistent-storage
+        persistentVolumeClaim:
+          claimName: mongodb-pvc
+      - name: mongodb-config
+        configMap:
+          name: mongodb-configmap
+          items:
+          - key: mongo.conf
+            path: mongo.conf
+      - name: mongodb-secret
+        secret:
+          secretName: mongodb-secret
