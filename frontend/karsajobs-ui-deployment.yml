@@ -28,4 +28,4 @@ spec:
             cpu: 50m
             memory: 128Mi
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
