@@ -8,6 +8,7 @@ metadata:
 spec:
   ports:
   - port: 8080
+    nodePort: 31000
   selector:
     app: karsajobs
     tier: backend
