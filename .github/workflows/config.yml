@@ -1,0 +1,22 @@
+name: CI Pipeline
+on:
+  push:
+    branches:
+      - karsajobs
+jobs:
+  lint-dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+  build-app-karsajobs-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push Docker Image to Github Packages
+        env:
+          PASSWORD_DOCKER_HUB: ${{ secrets.PASSWORD_DOCKER_HUB }}
+        run: bash build_push_image_karsajobs.sh
