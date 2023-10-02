@@ -1,27 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1 # Versi API Kubernetes yang digunakan.
+kind: Deployment # Jenis objek Kubernetes yang akan dibuat.
 metadata:
-  name: karsajobs-ui
+  name: karsajobs-ui # Nama dari Deployment.
   labels:
-    app: karsajobs
-    tier: frontend
+    app: karsajobs # Label aplikasi.
+    tier: frontend # Label tier.
 spec:
-  replicas: 1
+  replicas: 1 # Jumlah replika yang akan dibuat.
   selector:
     matchLabels:
-      app: karsajobs
-      tier: frontend
+      app: karsajobs # Selector pod berdasarkan label app.
+      tier: frontend # Selector pod berdasarkan label tier.
   template:
     metadata:
       labels:
-        app: karsajobs
-        tier: frontend
+        app: karsajobs # Label aplikasi pada template pod.
     spec:
       containers:
-        - name: karsajobs-ui
-          image: ghcr.io/agastiya/karsajobs-ui:latest
+        - name: karsajobs-ui # Nama container.
+          image: ghcr.io/agastiya/karsajobs-ui:latest # Image Docker yang digunakan.
           env:
-            - name: VUE_APP_BACKEND
-              value: http://127.0.0.1:31000
+            - name: VUE_APP_BACKEND # Environtment variable untuk konfigurasi backend URL.
+              value: http://127.0.0.1:31000 # Alamat URL backend.
           ports:
-            - containerPort: 8000
+            - containerPort: 8000 # Port yang digunakan oleh aplikasi.
+
