@@ -26,4 +26,4 @@ jobs:
       - name: Build and push Docker Image to Github Packages
         env:
           PASSWORD_DOCKER_HUB: ${{ secrets.PASSWORD_DOCKER_HUB }}
-        run: ./build_push_image_karsajobs.sh
+        run: bash build_push_image_karsajobs.sh
