@@ -1,46 +1,45 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1 # Versi API Kubernetes yang digunakan.
+kind: Deployment # Jenis objek Kubernetes yang akan dibuat.
 metadata:
-  name: karsajobs
+  name: karsajobs # Nama  Deployment.
   labels:
-    app: karsajobs
-    tier: backend
+    app: karsajobs # Label aplikasi.
+    tier: backend # Label tier.
 spec:
-  replicas: 1
+  replicas: 1 # Jumlah replika yang akan dibuat.
   selector:
     matchLabels:
-      app: karsajobs
-      tier: backend
+      app: karsajobs # Selectors pod berdasarkan label app.
+      tier: backend # Selectors pod berdasarkan label tier.
   template:
     metadata:
       labels:
-        app: karsajobs
-        tier: backend
+        app: karsajobs # Label aplikasi pada template pod.
     spec:
       containers:
-      - name: karsajobs
-        image: ghcr.io/agastiya/karsajobs:latest
-        ports:
-        - containerPort: 8080
-        resources:
-          limits:
-            cpu: 50m
-            memory: 200Mi
-          requests:
-            cpu: 50m
-            memory: 128Mi
-        env:
-        - name: APP_PORT
-          value: "8080"
-        - name: MONGO_HOST
-          value: "mongodb"
-        - name: MONGO_USER
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: MONGO_ROOT_USERNAME
-        - name: MONGO_PASS
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: MONGO_ROOT_PASSWORD
+        - name: karsajobs # Nama container.
+          image: ghcr.io/agastiya/karsajobs:latest # Image Docker yang digunakan.
+          ports:
+            - containerPort: 8080 # Port yang digunakan oleh aplikasi.
+          resources:
+            limits:
+              cpu: 50m # Batasan CPU untuk kontainer (50m = 50 milicpu).
+              memory: 200Mi # Batasan memori untuk kontainer (200 MiB).
+            requests:
+              cpu: 50m # Permintaan CPU untuk kontainer (50 milicpu).
+              memory: 128Mi # Permintaan memori untuk kontainer (128 MiB).
+          env:
+            - name: APP_PORT # Environtment Variable untuk port aplikasi.
+              value: "8080" # Port aplikasi.
+            - name: MONGO_HOST # Environtment Variable untuk host MongoDB.
+              value: "mongodb" # Host MongoDB.
+            - name: MONGO_USER # Environtment Variable untuk username MongoDB.
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret # Nama Secret yang berisi credential MongoDB.
+                  key: MONGO_ROOT_USERNAME # Key untuk username MongoDB dalam Secret.
+            - name: MONGO_PASS # Environtment Variable untuk password MongoDB.
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret # Nama Secret yang berisi credential MongoDB.
+                  key: MONGO_ROOT_PASSWORD # Key untuk password MongoDB dalam Secret.
