@@ -1,22 +1,22 @@
-name: CI Pipeline
+name: CI Pipeline # Nama pipeline.
 on:
   push:
     branches:
-      - karsajobs-ui
+      - karsajobs-ui # Pipeline akan di trigger (dijalankan) ketika ada push ke branch "karsajobs".
 jobs:
   lint-dockerfile:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Menentukan runner yang digunakan untuk jobs ini.
     steps:
-      - uses: actions/checkout@v3
-      - uses: hadolint/hadolint-action@v3.1.0
+      - uses: actions/checkout@v3 # Melakukan checkout kode dari repositori.
+      - uses: hadolint/hadolint-action@v3.1.0 # Menggunakan action Hadolint untuk melakukan linting Dockerfile.
         with:
-          dockerfile: Dockerfile
+          dockerfile: Dockerfile # Menentukan file Dockerfile yang akan dilint.
 
   build-app-karsajobs-ui:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Menentukan runner yang digunakan untuk jobs ini.
     steps:
-      - uses: actions/checkout@v3
-      - name: Build and push Docker Image to Github Packages
+      - uses: actions/checkout@v3 # Melakukan checkout kode dari repositori.
+      - name: Build and push Docker Image to Github Packages # Memberikan nama untuk step ini.
         env:
-          PASSWORD_DOCKER_HUB: ${{ secrets.PASSWORD_DOCKER_HUB }}
-        run: bash build_push_image_karsajobs_ui.sh
+          PASSWORD_DOCKER_HUB: ${{ secrets.PASSWORD_DOCKER_HUB }} # Mengambil password Docker dari secrets.
+        run: bash build_push_image_karsajobs_ui.sh # Menjalankan skrip bash untuk build dan push Docker Image ke Github Packages.
