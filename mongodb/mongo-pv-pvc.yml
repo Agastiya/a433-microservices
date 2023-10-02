@@ -10,8 +10,8 @@ spec:
   - ReadWriteOnce
   capacity:
     storage: 2Gi
-  local:
-    path: /mnt/data/mongo
+  hostPath:
+    path: "/data/db"
   nodeAffinity:
     required:
       nodeSelectorTerms:
