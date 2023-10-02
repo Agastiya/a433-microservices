@@ -1,14 +1,14 @@
-apiVersion: v1
-kind: Service
+apiVersion: v1 # Versi API Kubernetes yang digunakan.
+kind: Service # Jenis objek Kubernetes yang akan dibuat.
 metadata:
-  name: mongodb
+  name: mongodb # Nama Service.
   labels:
-    app: karsajobs
-    tier: database
+    app: karsajobs # Label aplikasi.
+    tier: database # Label tier.
 spec:
   selector:
-    app: karsajobs
-    tier: database
+    app: karsajobs # Selector pod berdasarkan label app.
+    tier: database # Selector pod berdasarkan label tier.
   ports:
-    - port: 27017
-  clusterIP: None
+    - port: 27017 # Port yang akan dibuka oleh Service untuk akses ke MongoDB.
+  clusterIP: None # Mengatur Cluster IP menjadi "None" untuk membuat Service dengan tipe "Headless".

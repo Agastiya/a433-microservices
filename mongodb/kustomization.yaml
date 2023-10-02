@@ -1,9 +1,8 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
+apiVersion: kustomize.config.k8s.io/v1beta1 # Versi API Kustomization.
+kind: Kustomization # Jenis objek Kustomization.
 resources:
-  - mongo-configmap.yml
-  - mongo-pv-pvc.yml
-  - mongo-secret.yml
-  - mongo-service.yml
-  - mongo-statefulset.yml
+  - mongo-configmap.yml # Mendeploy resources ConfigMap dari berkas "mongo-configmap.yml".
+  - mongo-pv-pvc.yml # Mendeploy resources Persistent Volume dan Persistent Volume Claim dari berkas "mongo-pv-pvc.yml".
+  - mongo-secret.yml # Mendeploy resources Secret dari berkas "mongo-secret.yml".
+  - mongo-service.yml # Mendeploy resources Service dari berkas "mongo-service.yml".
+  - mongo-statefulset.yml # Mendeploy resources StatefulSet dari berkas "mongo-statefulset.yml".
