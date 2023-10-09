@@ -1,0 +1,27 @@
+apiVersion: apps/v1 # Versi API Kubernetes yang digunakan.
+kind: Deployment # Jenis objek Kubernetes yang akan dibuat.
+metadata:
+  name: order # Nama dari Deployment.
+  labels:
+    app: order # Label aplikasi.
+spec:
+  replicas: 1 # Jumlah replika yang akan dibuat.
+  selector:
+    matchLabels:
+      app: order # Selector pod berdasarkan label app.
+  template:
+    metadata:
+      labels:
+        app: order # Label aplikasi pada template pod.
+    spec:
+      containers:
+      - name: order # Nama container.
+        # image: ghcr.io/agastiya/karsajobs-ui:latest # Image Docker yang digunakan.
+        ports:
+        - containerPort: 3000 # Port yang digunakan oleh aplikasi.
+        env:
+        - name: PORT # Environtment variable (PORT) untuk konfigurasi pada Order Service.
+          value: "3000" # Port Order Service.
+        - name: AMQP_URL # Environtment variable (AMQP_URL) untuk konfigurasi pada Order Service.
+          value: "" # Nilai untuk AMQP_URL.
+
