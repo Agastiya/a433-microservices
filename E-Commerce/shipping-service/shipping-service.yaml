@@ -1,0 +1,11 @@
+apiVersion: v1 # Versi API Kubernetes yang digunakan.
+kind: Service # Jenis objek Kubernetes yang akan dibuat.
+metadata:
+  name: shipping-service # Nama Service.
+spec:
+  selector:
+    app: shipping # Selector pod berdasarkan label app.
+  ports:
+    - port: 3001 # Port yang akan digunakan oleh Service.
+      protocol: TCP
+      targetPort: 3001 # Custom Port pada node host yang akan digunakan oleh Service.

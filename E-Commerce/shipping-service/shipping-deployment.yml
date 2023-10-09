@@ -1,0 +1,27 @@
+apiVersion: apps/v1 # Versi API Kubernetes yang digunakan.
+kind: Deployment # Jenis objek Kubernetes yang akan dibuat.
+metadata:
+  name: shipping # Nama dari Deployment.
+  labels:
+    app: shipping # Label aplikasi.
+spec:
+  replicas: 1 # Jumlah replika yang akan dibuat.
+  selector:
+    matchLabels:
+      app: shipping # Selector pod berdasarkan label app.
+  template:
+    metadata:
+      labels:
+        app: shipping # Label aplikasi pada template pod.
+    spec:
+      containers:
+        - name: shipping # Nama container.
+          image: ghcr.io/agastiya/shipping-service:latest # Image Docker yang digunakan.
+          ports:
+            - containerPort: 3001 # Port yang digunakan oleh aplikasi.
+          env:
+            - name: PORT # Environtment variable (PORT) untuk konfigurasi pada Order Service.
+              value: "3001" # Port Order Service.
+            - name: AMQP_URL # Environtment variable (AMQP_URL) untuk konfigurasi pada Order Service.
+              value: "127.0.0.1:15672" # Nilai untuk AMQP_URL.
+
