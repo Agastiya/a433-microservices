@@ -1,5 +1,5 @@
-# Menggunakan image node versi 18 (berbasis apline linux)
-FROM node:18-alpine as builder
+# Menggunakan image node versi 14 (berbasis apline linux)
+FROM node:14.21-alpine as builder
 
 # Mengatur direktori kerja di dalam container ke /app
 WORKDIR /app
