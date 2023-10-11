@@ -6,6 +6,6 @@ spec:
   selector:
     app: order # Selector pod berdasarkan label app.
   ports:
-    - port: 3000 # Port yang akan digunakan oleh Service.
-      protocol: TCP
-      targetPort: 3000 # Custom Port pada node host yang akan digunakan oleh Service.
+  - port: 3000 # Port yang akan digunakan oleh Service.
+    protocol: TCP
+    targetPort: 3000 # Custom Port pada node host yang akan digunakan oleh Service.
