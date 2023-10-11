@@ -4,23 +4,23 @@ metadata:
   name: ecommerce
 spec:
   hosts:
-  - "*"
+    - "*"
   gateways:
-  - ecommerce-gateway
+    - ecommerce-gateway
   http:
-  - match:
-    - uri:
-        exact: /order
-    - uri:
-        prefix: /shipping
-    route:
-    - destination:
-        host: order-service
-        port:
-          number: 3000
-      weight: 100
-    - destination:
-        host: shipping-service
-        port:
-          number: 3001
-      weight: 100
+    - match:
+        - uri:
+            exact: /order
+        - uri:
+            prefix: /shipping
+      route:
+        - destination:
+            host: order-service
+            port:
+              number: 3000
+          weight: 100
+        - destination:
+            host: shipping-service
+            port:
+              number: 3001
+          weight: 100
