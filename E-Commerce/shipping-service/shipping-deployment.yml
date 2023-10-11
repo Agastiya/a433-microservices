@@ -15,13 +15,13 @@ spec:
         app: shipping # Label aplikasi pada template pod.
     spec:
       containers:
-        - name: shipping # Nama container.
-          image: ghcr.io/agastiya/shipping-service:latest # Image Docker yang digunakan.
-          ports:
-            - containerPort: 3001 # Port yang digunakan oleh aplikasi.
-          env:
-            - name: PORT # Environtment variable (PORT) untuk konfigurasi pada Order Service.
-              value: "3001" # Port Order Service.
-            - name: AMQP_URL # Environtment variable (AMQP_URL) untuk konfigurasi pada Order Service.
-              value: "127.0.0.1:15672" # Nilai untuk AMQP_URL.
+      - name: shipping # Nama container.
+        image: ghcr.io/agastiya/shipping-service:latest # Image Docker yang digunakan.
+        ports:
+        - containerPort: 3001 # Port yang digunakan oleh aplikasi.
+        env:
+        - name: PORT # Environtment variable (PORT) untuk konfigurasi pada Order Service.
+          value: "3001" # Port Order Service.
+        - name: AMQP_URL # Environtment variable (AMQP_URL) untuk konfigurasi pada Order Service.
+          value: "amqp://rabbitmq:5672" # Nilai untuk AMQP_URL.
 
