@@ -1,35 +1,36 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: rabbitmq
+  name: rabbitmq  # Nama StatefulSet
 spec:
-  serviceName: rabbitmq
-  replicas: 1
+  serviceName: rabbitmq  # Nama Service yang akan digunakan oleh StatefulSet
+  replicas: 1  # Jumlah replika yang akan dibuat
   selector:
     matchLabels:
-      app: rabbitmq
+      app: rabbitmq  # Seleksi pod berdasarkan label "app: rabbitmq"
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: rabbitmq  # Label yang akan digunakan untuk pod yang dibuat
     spec:
       containers:
-      - name: rabbitmq
-        image: rabbitmq:3.11-management
+      - name: rabbitmq  # Nama container RabbitMQ
+        image: rabbitmq:3.11-management  # Image Docker RabbitMQ yang akan digunakan
         envFrom:
         - configMapRef:
-            name: rabbitmq-config
+            name: rabbitmq-config  # Menggunakan konfigurasi dari ConfigMap "rabbitmq-config"
         ports:
-        - containerPort: 5672
-        - containerPort: 15672
+        - containerPort: 5672  # Port RabbitMQ biasa
+        - containerPort: 15672  # Port antarmuka manajemen RabbitMQ
         volumeMounts:
-        - name: rabbitmq-data
-          mountPath: /var/lib/rabbitmq
+        - name: rabbitmq-data  # Nama volume yang akan digunakan
+          mountPath: /var/lib/rabbitmq  # Path tempat data RabbitMQ akan disimpan
   volumeClaimTemplates:
   - metadata:
-      name: rabbitmq-data
+      name: rabbitmq-data  # Nama volume claim template
     spec:
-      accessModes: ["ReadWriteOnce"]
+      accessModes: ["ReadWriteOnce"]  # Mode akses volume
       resources:
         requests:
-          storage: 10Gi
+          storage: 10Gi  # Permintaan penyimpanan untuk volume claim
+

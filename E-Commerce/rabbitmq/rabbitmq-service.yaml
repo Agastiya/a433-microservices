@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq
+  name: rabbitmq  # Nama Service
 spec:
   selector:
-    app: rabbitmq
+    app: rabbitmq  # Memilih pod-pod yang memiliki label "app: rabbitmq"
   ports:
-    - name: tcp-rabbitmq
-      protocol: TCP
-      port: 5672
-    - name: tcp-rabbitmq-management
-      protocol: TCP
-      port: 15672
+    - name: tcp-rabbitmq  # Nama port pertama
+      protocol: TCP  # Protokol yang digunakan (TCP)
+      port: 5672  # Nomor port yang akan menerima traffict
+    - name: tcp-rabbitmq-management  # Nama port kedua
+      protocol: TCP  # Protokol yang digunakan (TCP)
+      port: 15672  # Nomor port yang akan menerima traffict
